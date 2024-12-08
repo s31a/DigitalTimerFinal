@@ -1,0 +1,8 @@
+module digital_timer(CLOCK_50, KEY, LEDR, HEX0, HEX1);
+	input CLOCK_50;
+	input [3:0] KEY;
+	output [9:0] LEDR;
+	output [6:0] HEX0, HEX1;
+	
+	wire clk, reset, start, inc_sec, load, run, done;
+	wire [5:0

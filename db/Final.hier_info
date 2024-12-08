@@ -1,0 +1,240 @@
+|digital_timer
+CLOCK_50 => CLOCK_50.IN1
+KEY[0] => reset.IN3
+KEY[1] => start.IN1
+KEY[2] => ~NO_FANOUT~
+KEY[3] => ~NO_FANOUT~
+SW[0] => SW[0].IN1
+SW[1] => SW[1].IN1
+SW[2] => SW[2].IN1
+SW[3] => SW[3].IN1
+SW[4] => SW[4].IN1
+SW[5] => SW[5].IN1
+LEDR[0] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[1] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[2] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[3] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[4] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[5] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[6] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[7] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[8] << done.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[9] << done.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[0] << display:disp.HEX0
+HEX0[1] << display:disp.HEX0
+HEX0[2] << display:disp.HEX0
+HEX0[3] << display:disp.HEX0
+HEX0[4] << display:disp.HEX0
+HEX0[5] << display:disp.HEX0
+HEX0[6] << display:disp.HEX0
+HEX1[0] << display:disp.HEX1
+HEX1[1] << display:disp.HEX1
+HEX1[2] << display:disp.HEX1
+HEX1[3] << display:disp.HEX1
+HEX1[4] << display:disp.HEX1
+HEX1[5] << display:disp.HEX1
+HEX1[6] << display:disp.HEX1
+
+
+|digital_timer|Hz_1:clkdiv
+C50 => clk1hz~reg0.CLK
+C50 => q[0].CLK
+C50 => q[1].CLK
+C50 => q[2].CLK
+C50 => q[3].CLK
+C50 => q[4].CLK
+C50 => q[5].CLK
+C50 => q[6].CLK
+C50 => q[7].CLK
+C50 => q[8].CLK
+C50 => q[9].CLK
+C50 => q[10].CLK
+C50 => q[11].CLK
+C50 => q[12].CLK
+C50 => q[13].CLK
+C50 => q[14].CLK
+C50 => q[15].CLK
+C50 => q[16].CLK
+C50 => q[17].CLK
+C50 => q[18].CLK
+C50 => q[19].CLK
+C50 => q[20].CLK
+C50 => q[21].CLK
+C50 => q[22].CLK
+C50 => q[23].CLK
+C50 => q[24].CLK
+C50 => q[25].CLK
+C50 => q[26].CLK
+C50 => q[27].CLK
+C50 => q[28].CLK
+C50 => q[29].CLK
+C50 => q[30].CLK
+C50 => q[31].CLK
+clk1hz <= clk1hz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|digital_timer|timer_fsm:fsm
+clk => run~reg0.CLK
+clk => load~reg0.CLK
+clk => state[0]~reg0.CLK
+clk => state[1]~reg0.CLK
+reset => state.OUTPUTSELECT
+reset => state.OUTPUTSELECT
+reset => run~reg0.ACLR
+reset => load~reg0.PRESET
+reset => state[0]~reg0.ACLR
+reset => state[1]~reg0.ACLR
+start => state.OUTPUTSELECT
+start => state.OUTPUTSELECT
+state[0] <= state[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+state[1] <= state[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+load <= load~reg0.DB_MAX_OUTPUT_PORT_TYPE
+run <= run~reg0.DB_MAX_OUTPUT_PORT_TYPE
+done => state.OUTPUTSELECT
+done => state.OUTPUTSELECT
+
+
+|digital_timer|countdown_timer:timer
+clk => done~reg0.CLK
+clk => time_set[0]~reg0.CLK
+clk => time_set[1]~reg0.CLK
+clk => time_set[2]~reg0.CLK
+clk => time_set[3]~reg0.CLK
+clk => time_set[4]~reg0.CLK
+clk => time_set[5]~reg0.CLK
+clk => time_left[0]~reg0.CLK
+clk => time_left[1]~reg0.CLK
+clk => time_left[2]~reg0.CLK
+clk => time_left[3]~reg0.CLK
+clk => time_left[4]~reg0.CLK
+clk => time_left[5]~reg0.CLK
+reset => done~reg0.ACLR
+reset => time_set[0]~reg0.ACLR
+reset => time_set[1]~reg0.ACLR
+reset => time_set[2]~reg0.ACLR
+reset => time_set[3]~reg0.ACLR
+reset => time_set[4]~reg0.ACLR
+reset => time_set[5]~reg0.ACLR
+reset => time_left[0]~reg0.ACLR
+reset => time_left[1]~reg0.ACLR
+reset => time_left[2]~reg0.ACLR
+reset => time_left[3]~reg0.ACLR
+reset => time_left[4]~reg0.ACLR
+reset => time_left[5]~reg0.ACLR
+load => time_left.OUTPUTSELECT
+load => time_left.OUTPUTSELECT
+load => time_left.OUTPUTSELECT
+load => time_left.OUTPUTSELECT
+load => time_left.OUTPUTSELECT
+load => time_left.OUTPUTSELECT
+load => done.OUTPUTSELECT
+load => time_set[5]~reg0.ENA
+load => time_set[4]~reg0.ENA
+load => time_set[3]~reg0.ENA
+load => time_set[2]~reg0.ENA
+load => time_set[1]~reg0.ENA
+load => time_set[0]~reg0.ENA
+run => time_left.OUTPUTSELECT
+run => time_left.OUTPUTSELECT
+run => time_left.OUTPUTSELECT
+run => time_left.OUTPUTSELECT
+run => time_left.OUTPUTSELECT
+run => time_left.OUTPUTSELECT
+run => done.OUTPUTSELECT
+sw_time[0] => time_set[0]~reg0.DATAIN
+sw_time[1] => time_set[1]~reg0.DATAIN
+sw_time[2] => time_set[2]~reg0.DATAIN
+sw_time[3] => time_set[3]~reg0.DATAIN
+sw_time[4] => time_set[4]~reg0.DATAIN
+sw_time[5] => time_set[5]~reg0.DATAIN
+time_left[0] <= time_left[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_left[1] <= time_left[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_left[2] <= time_left[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_left[3] <= time_left[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_left[4] <= time_left[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_left[5] <= time_left[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_set[0] <= time_set[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_set[1] <= time_set[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_set[2] <= time_set[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_set[3] <= time_set[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_set[4] <= time_set[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+time_set[5] <= time_set[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|digital_timer|display:disp
+time_left[0] => Div0.IN9
+time_left[0] => Mod0.IN9
+time_left[1] => Div0.IN8
+time_left[1] => Mod0.IN8
+time_left[2] => Div0.IN7
+time_left[2] => Mod0.IN7
+time_left[3] => Div0.IN6
+time_left[3] => Mod0.IN6
+time_left[4] => Div0.IN5
+time_left[4] => Mod0.IN5
+time_left[5] => Div0.IN4
+time_left[5] => Mod0.IN4
+HEX0[0] <= seg7:onesDisp.HEX0
+HEX0[1] <= seg7:onesDisp.HEX0
+HEX0[2] <= seg7:onesDisp.HEX0
+HEX0[3] <= seg7:onesDisp.HEX0
+HEX0[4] <= seg7:onesDisp.HEX0
+HEX0[5] <= seg7:onesDisp.HEX0
+HEX0[6] <= seg7:onesDisp.HEX0
+HEX1[0] <= seg7:tensDisp.HEX0
+HEX1[1] <= seg7:tensDisp.HEX0
+HEX1[2] <= seg7:tensDisp.HEX0
+HEX1[3] <= seg7:tensDisp.HEX0
+HEX1[4] <= seg7:tensDisp.HEX0
+HEX1[5] <= seg7:tensDisp.HEX0
+HEX1[6] <= seg7:tensDisp.HEX0
+
+
+|digital_timer|display:disp|seg7:tensDisp
+A[0] => Decoder0.IN3
+A[1] => Decoder0.IN2
+A[2] => Decoder0.IN1
+A[3] => Decoder0.IN0
+HEX0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|digital_timer|display:disp|seg7:onesDisp
+A[0] => Decoder0.IN3
+A[1] => Decoder0.IN2
+A[2] => Decoder0.IN1
+A[3] => Decoder0.IN0
+HEX0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+HEX0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|digital_timer|spinny:spin
+clk => state~3.DATAIN
+reset => state~5.DATAIN
+run => state.OUTPUTSELECT
+run => state.OUTPUTSELECT
+run => state.OUTPUTSELECT
+run => state.OUTPUTSELECT
+run => state.OUTPUTSELECT
+run => state.OUTPUTSELECT
+run => state.OUTPUTSELECT
+spinnyThingy[0] <= spinnyThingy.DB_MAX_OUTPUT_PORT_TYPE
+spinnyThingy[1] <= always1.DB_MAX_OUTPUT_PORT_TYPE
+spinnyThingy[2] <= always1.DB_MAX_OUTPUT_PORT_TYPE
+spinnyThingy[3] <= always1.DB_MAX_OUTPUT_PORT_TYPE
+spinnyThingy[4] <= always1.DB_MAX_OUTPUT_PORT_TYPE
+spinnyThingy[5] <= always1.DB_MAX_OUTPUT_PORT_TYPE
+spinnyThingy[6] <= spinnyThingy[6].DB_MAX_OUTPUT_PORT_TYPE
+
+

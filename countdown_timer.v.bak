@@ -1,0 +1,14 @@
+module countdown_timer(clk, reset, load, run, set_time, time_left, done);
+	always @(posedge clk or posedge reset) begin
+		if (reset) begin
+			time_left <= 0;
+			done <= 0;
+		end else if (load) begin;
+			time_left <= set_time;
+			done <= 0;
+		end else if (run && time_left > 0) begin
+			time_left <= time_left - 1;
+			if (time_left == 1) done <=1;
+		end
+	end
+endmodule
